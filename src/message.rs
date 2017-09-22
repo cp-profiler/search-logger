@@ -1,1243 +1,242 @@
-// This file is generated. Do not edit
-// @generated
+use std;
 
-// https://github.com/Manishearth/rust-clippy/issues/702
-#![allow(unknown_lints)]
-#![allow(clippy)]
 
-#![cfg_attr(rustfmt, rustfmt_skip)]
-
-#![allow(box_pointers)]
-#![allow(dead_code)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
-#![allow(non_upper_case_globals)]
-#![allow(trivial_casts)]
-#![allow(unsafe_code)]
-#![allow(unused_imports)]
-#![allow(unused_results)]
-
-use protobuf::Message as Message_imported_for_functions;
-use protobuf::ProtobufEnum as ProtobufEnum_imported_for_functions;
-
-#[derive(Clone,Default)]
-pub struct Node {
-    // message fields
-    field_type: ::std::option::Option<Node_MsgType>,
-    sid: ::std::option::Option<i32>,
-    pid: ::std::option::Option<i32>,
-    alt: ::std::option::Option<i32>,
-    kids: ::std::option::Option<i32>,
-    status: ::std::option::Option<Node_NodeStatus>,
-    restart_id: ::std::option::Option<i32>,
-    time: ::std::option::Option<u64>,
-    thread_id: ::std::option::Option<i32>,
-    label: ::protobuf::SingularField<::std::string::String>,
-    domain_size: ::std::option::Option<f32>,
-    solution: ::protobuf::SingularField<::std::string::String>,
-    nogood: ::protobuf::SingularField<::std::string::String>,
-    info: ::protobuf::SingularField<::std::string::String>,
-    nogood_bld: ::std::option::Option<i32>,
-    uses_assumptions: ::std::option::Option<bool>,
-    backjump_distance: ::std::option::Option<i32>,
-    decision_level: ::std::option::Option<i32>,
-    // special fields
-    unknown_fields: ::protobuf::UnknownFields,
-    cached_size: ::std::cell::Cell<u32>,
+#[derive(Debug, PartialEq)]
+pub enum Message {
+    START {
+        rid: Option<i32>,
+        name: Option<String>,
+    },
+    DONE,
+    NODE {
+        sid: i32,
+        pid: i32,
+        alt: i32,
+        kids: i32,
+        status: Status,
+        rid: Option<i32>,
+        tid: Option<i32>,
+        label: Option<String>,
+        solution: Option<String>,
+        nogood: Option<String>,
+        info: Option<String>,
+    },
 }
 
-// see codegen.rs for the explanation why impl Sync explicitly
-unsafe impl ::std::marker::Sync for Node {}
+#[derive(Debug)]
+pub struct Node {
+    msg_type: Type,
+    sid: Option<i32>,
+    pid: Option<i32>,
+    alt: Option<i32>,
+    kids: Option<i32>,
+    status: Option<Status>,
+}
 
 impl Node {
-    pub fn new() -> Node {
-        ::std::default::Default::default()
-    }
-
-    pub fn default_instance() -> &'static Node {
-        static mut instance: ::protobuf::lazy::Lazy<Node> = ::protobuf::lazy::Lazy {
-            lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const Node,
-        };
-        unsafe {
-            instance.get(|| {
-                Node {
-                    field_type: ::std::option::Option::None,
-                    sid: ::std::option::Option::None,
-                    pid: ::std::option::Option::None,
-                    alt: ::std::option::Option::None,
-                    kids: ::std::option::Option::None,
-                    status: ::std::option::Option::None,
-                    restart_id: ::std::option::Option::None,
-                    time: ::std::option::Option::None,
-                    thread_id: ::std::option::Option::None,
-                    label: ::protobuf::SingularField::none(),
-                    domain_size: ::std::option::Option::None,
-                    solution: ::protobuf::SingularField::none(),
-                    nogood: ::protobuf::SingularField::none(),
-                    info: ::protobuf::SingularField::none(),
-                    nogood_bld: ::std::option::Option::None,
-                    uses_assumptions: ::std::option::Option::None,
-                    backjump_distance: ::std::option::Option::None,
-                    decision_level: ::std::option::Option::None,
-                    unknown_fields: ::protobuf::UnknownFields::new(),
-                    cached_size: ::std::cell::Cell::new(0),
-                }
-            })
-        }
-    }
-
-    // required .message.Node.MsgType type = 1;
-
-    pub fn clear_field_type(&mut self) {
-        self.field_type = ::std::option::Option::None;
-    }
-
-    pub fn has_field_type(&self) -> bool {
-        self.field_type.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_field_type(&mut self, v: Node_MsgType) {
-        self.field_type = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_field_type(&self) -> Node_MsgType {
-        self.field_type.unwrap_or(Node_MsgType::NODE)
-    }
-
-    // optional int32 sid = 2;
-
-    pub fn clear_sid(&mut self) {
-        self.sid = ::std::option::Option::None;
-    }
-
-    pub fn has_sid(&self) -> bool {
-        self.sid.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_sid(&mut self, v: i32) {
-        self.sid = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_sid(&self) -> i32 {
-        self.sid.unwrap_or(0)
-    }
-
-    // optional int32 pid = 3;
-
-    pub fn clear_pid(&mut self) {
-        self.pid = ::std::option::Option::None;
-    }
-
-    pub fn has_pid(&self) -> bool {
-        self.pid.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_pid(&mut self, v: i32) {
-        self.pid = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_pid(&self) -> i32 {
-        self.pid.unwrap_or(0)
-    }
-
-    // optional int32 alt = 4;
-
-    pub fn clear_alt(&mut self) {
-        self.alt = ::std::option::Option::None;
-    }
-
-    pub fn has_alt(&self) -> bool {
-        self.alt.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_alt(&mut self, v: i32) {
-        self.alt = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_alt(&self) -> i32 {
-        self.alt.unwrap_or(0)
-    }
-
-    // optional int32 kids = 5;
-
-    pub fn clear_kids(&mut self) {
-        self.kids = ::std::option::Option::None;
-    }
-
-    pub fn has_kids(&self) -> bool {
-        self.kids.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_kids(&mut self, v: i32) {
-        self.kids = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_kids(&self) -> i32 {
-        self.kids.unwrap_or(0)
-    }
-
-    // optional .message.Node.NodeStatus status = 6;
-
-    pub fn clear_status(&mut self) {
-        self.status = ::std::option::Option::None;
-    }
-
-    pub fn has_status(&self) -> bool {
-        self.status.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_status(&mut self, v: Node_NodeStatus) {
-        self.status = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_status(&self) -> Node_NodeStatus {
-        self.status.unwrap_or(Node_NodeStatus::SOLVED)
-    }
-
-    // optional int32 restart_id = 7;
-
-    pub fn clear_restart_id(&mut self) {
-        self.restart_id = ::std::option::Option::None;
-    }
-
-    pub fn has_restart_id(&self) -> bool {
-        self.restart_id.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_restart_id(&mut self, v: i32) {
-        self.restart_id = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_restart_id(&self) -> i32 {
-        self.restart_id.unwrap_or(0)
-    }
-
-    // optional uint64 time = 8;
-
-    pub fn clear_time(&mut self) {
-        self.time = ::std::option::Option::None;
-    }
-
-    pub fn has_time(&self) -> bool {
-        self.time.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_time(&mut self, v: u64) {
-        self.time = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_time(&self) -> u64 {
-        self.time.unwrap_or(0)
-    }
-
-    // optional int32 thread_id = 9;
-
-    pub fn clear_thread_id(&mut self) {
-        self.thread_id = ::std::option::Option::None;
-    }
-
-    pub fn has_thread_id(&self) -> bool {
-        self.thread_id.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_thread_id(&mut self, v: i32) {
-        self.thread_id = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_thread_id(&self) -> i32 {
-        self.thread_id.unwrap_or(0)
-    }
-
-    // optional string label = 10;
-
-    pub fn clear_label(&mut self) {
-        self.label.clear();
-    }
-
-    pub fn has_label(&self) -> bool {
-        self.label.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_label(&mut self, v: ::std::string::String) {
-        self.label = ::protobuf::SingularField::some(v);
-    }
-
-    // Mutable pointer to the field.
-    // If field is not initialized, it is initialized with default value first.
-    pub fn mut_label(&mut self) -> &mut ::std::string::String {
-        if self.label.is_none() {
-            self.label.set_default();
-        };
-        self.label.as_mut().unwrap()
-    }
-
-    // Take field
-    pub fn take_label(&mut self) -> ::std::string::String {
-        self.label.take().unwrap_or_else(|| ::std::string::String::new())
-    }
-
-    pub fn get_label(&self) -> &str {
-        match self.label.as_ref() {
-            Some(v) => &v,
-            None => "",
-        }
-    }
-
-    // optional float domain_size = 11;
-
-    pub fn clear_domain_size(&mut self) {
-        self.domain_size = ::std::option::Option::None;
-    }
-
-    pub fn has_domain_size(&self) -> bool {
-        self.domain_size.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_domain_size(&mut self, v: f32) {
-        self.domain_size = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_domain_size(&self) -> f32 {
-        self.domain_size.unwrap_or(0.)
-    }
-
-    // optional string solution = 12;
-
-    pub fn clear_solution(&mut self) {
-        self.solution.clear();
-    }
-
-    pub fn has_solution(&self) -> bool {
-        self.solution.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_solution(&mut self, v: ::std::string::String) {
-        self.solution = ::protobuf::SingularField::some(v);
-    }
-
-    // Mutable pointer to the field.
-    // If field is not initialized, it is initialized with default value first.
-    pub fn mut_solution(&mut self) -> &mut ::std::string::String {
-        if self.solution.is_none() {
-            self.solution.set_default();
-        };
-        self.solution.as_mut().unwrap()
-    }
-
-    // Take field
-    pub fn take_solution(&mut self) -> ::std::string::String {
-        self.solution.take().unwrap_or_else(|| ::std::string::String::new())
-    }
-
-    pub fn get_solution(&self) -> &str {
-        match self.solution.as_ref() {
-            Some(v) => &v,
-            None => "",
-        }
-    }
-
-    // optional string nogood = 13;
-
-    pub fn clear_nogood(&mut self) {
-        self.nogood.clear();
-    }
-
-    pub fn has_nogood(&self) -> bool {
-        self.nogood.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_nogood(&mut self, v: ::std::string::String) {
-        self.nogood = ::protobuf::SingularField::some(v);
-    }
-
-    // Mutable pointer to the field.
-    // If field is not initialized, it is initialized with default value first.
-    pub fn mut_nogood(&mut self) -> &mut ::std::string::String {
-        if self.nogood.is_none() {
-            self.nogood.set_default();
-        };
-        self.nogood.as_mut().unwrap()
-    }
-
-    // Take field
-    pub fn take_nogood(&mut self) -> ::std::string::String {
-        self.nogood.take().unwrap_or_else(|| ::std::string::String::new())
-    }
-
-    pub fn get_nogood(&self) -> &str {
-        match self.nogood.as_ref() {
-            Some(v) => &v,
-            None => "",
-        }
-    }
-
-    // optional string info = 14;
-
-    pub fn clear_info(&mut self) {
-        self.info.clear();
-    }
-
-    pub fn has_info(&self) -> bool {
-        self.info.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_info(&mut self, v: ::std::string::String) {
-        self.info = ::protobuf::SingularField::some(v);
-    }
-
-    // Mutable pointer to the field.
-    // If field is not initialized, it is initialized with default value first.
-    pub fn mut_info(&mut self) -> &mut ::std::string::String {
-        if self.info.is_none() {
-            self.info.set_default();
-        };
-        self.info.as_mut().unwrap()
-    }
-
-    // Take field
-    pub fn take_info(&mut self) -> ::std::string::String {
-        self.info.take().unwrap_or_else(|| ::std::string::String::new())
-    }
-
-    pub fn get_info(&self) -> &str {
-        match self.info.as_ref() {
-            Some(v) => &v,
-            None => "",
-        }
-    }
-
-    // optional int32 nogood_bld = 15;
-
-    pub fn clear_nogood_bld(&mut self) {
-        self.nogood_bld = ::std::option::Option::None;
-    }
-
-    pub fn has_nogood_bld(&self) -> bool {
-        self.nogood_bld.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_nogood_bld(&mut self, v: i32) {
-        self.nogood_bld = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_nogood_bld(&self) -> i32 {
-        self.nogood_bld.unwrap_or(0)
-    }
-
-    // optional bool uses_assumptions = 16;
-
-    pub fn clear_uses_assumptions(&mut self) {
-        self.uses_assumptions = ::std::option::Option::None;
-    }
-
-    pub fn has_uses_assumptions(&self) -> bool {
-        self.uses_assumptions.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_uses_assumptions(&mut self, v: bool) {
-        self.uses_assumptions = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_uses_assumptions(&self) -> bool {
-        self.uses_assumptions.unwrap_or(false)
-    }
-
-    // optional int32 backjump_distance = 17;
-
-    pub fn clear_backjump_distance(&mut self) {
-        self.backjump_distance = ::std::option::Option::None;
-    }
-
-    pub fn has_backjump_distance(&self) -> bool {
-        self.backjump_distance.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_backjump_distance(&mut self, v: i32) {
-        self.backjump_distance = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_backjump_distance(&self) -> i32 {
-        self.backjump_distance.unwrap_or(0)
-    }
-
-    // optional int32 decision_level = 18;
-
-    pub fn clear_decision_level(&mut self) {
-        self.decision_level = ::std::option::Option::None;
-    }
-
-    pub fn has_decision_level(&self) -> bool {
-        self.decision_level.is_some()
-    }
-
-    // Param is passed by value, moved
-    pub fn set_decision_level(&mut self, v: i32) {
-        self.decision_level = ::std::option::Option::Some(v);
-    }
-
-    pub fn get_decision_level(&self) -> i32 {
-        self.decision_level.unwrap_or(0)
+    pub fn get_type(self) -> Type {
+        self.msg_type
     }
 }
 
-impl ::protobuf::Message for Node {
-    fn is_initialized(&self) -> bool {
-        if self.field_type.is_none() {
-            return false;
-        };
-        true
-    }
-
-    fn merge_from(&mut self, is: &mut ::protobuf::CodedInputStream) -> ::protobuf::ProtobufResult<()> {
-        while !try!(is.eof()) {
-            let (field_number, wire_type) = try!(is.read_tag_unpack());
-            match field_number {
-                1 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_enum());
-                    self.field_type = ::std::option::Option::Some(tmp);
-                },
-                2 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.sid = ::std::option::Option::Some(tmp);
-                },
-                3 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.pid = ::std::option::Option::Some(tmp);
-                },
-                4 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.alt = ::std::option::Option::Some(tmp);
-                },
-                5 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.kids = ::std::option::Option::Some(tmp);
-                },
-                6 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_enum());
-                    self.status = ::std::option::Option::Some(tmp);
-                },
-                7 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.restart_id = ::std::option::Option::Some(tmp);
-                },
-                8 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_uint64());
-                    self.time = ::std::option::Option::Some(tmp);
-                },
-                9 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.thread_id = ::std::option::Option::Some(tmp);
-                },
-                10 => {
-                    try!(::protobuf::rt::read_singular_string_into(wire_type, is, &mut self.label));
-                },
-                11 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeFixed32 {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_float());
-                    self.domain_size = ::std::option::Option::Some(tmp);
-                },
-                12 => {
-                    try!(::protobuf::rt::read_singular_string_into(wire_type, is, &mut self.solution));
-                },
-                13 => {
-                    try!(::protobuf::rt::read_singular_string_into(wire_type, is, &mut self.nogood));
-                },
-                14 => {
-                    try!(::protobuf::rt::read_singular_string_into(wire_type, is, &mut self.info));
-                },
-                15 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.nogood_bld = ::std::option::Option::Some(tmp);
-                },
-                16 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_bool());
-                    self.uses_assumptions = ::std::option::Option::Some(tmp);
-                },
-                17 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.backjump_distance = ::std::option::Option::Some(tmp);
-                },
-                18 => {
-                    if wire_type != ::protobuf::wire_format::WireTypeVarint {
-                        return ::std::result::Result::Err(::protobuf::rt::unexpected_wire_type(wire_type));
-                    };
-                    let tmp = try!(is.read_int32());
-                    self.decision_level = ::std::option::Option::Some(tmp);
-                },
-                _ => {
-                    try!(::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields()));
-                },
-            };
-        }
-        ::std::result::Result::Ok(())
-    }
-
-    // Compute sizes of nested messages
-    #[allow(unused_variables)]
-    fn compute_size(&self) -> u32 {
-        let mut my_size = 0;
-        for value in &self.field_type {
-            my_size += ::protobuf::rt::enum_size(1, *value);
-        };
-        for value in &self.sid {
-            my_size += ::protobuf::rt::value_size(2, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.pid {
-            my_size += ::protobuf::rt::value_size(3, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.alt {
-            my_size += ::protobuf::rt::value_size(4, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.kids {
-            my_size += ::protobuf::rt::value_size(5, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.status {
-            my_size += ::protobuf::rt::enum_size(6, *value);
-        };
-        for value in &self.restart_id {
-            my_size += ::protobuf::rt::value_size(7, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.time {
-            my_size += ::protobuf::rt::value_size(8, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.thread_id {
-            my_size += ::protobuf::rt::value_size(9, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.label {
-            my_size += ::protobuf::rt::string_size(10, &value);
-        };
-        if self.domain_size.is_some() {
-            my_size += 5;
-        };
-        for value in &self.solution {
-            my_size += ::protobuf::rt::string_size(12, &value);
-        };
-        for value in &self.nogood {
-            my_size += ::protobuf::rt::string_size(13, &value);
-        };
-        for value in &self.info {
-            my_size += ::protobuf::rt::string_size(14, &value);
-        };
-        for value in &self.nogood_bld {
-            my_size += ::protobuf::rt::value_size(15, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        if self.uses_assumptions.is_some() {
-            my_size += 3;
-        };
-        for value in &self.backjump_distance {
-            my_size += ::protobuf::rt::value_size(17, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        for value in &self.decision_level {
-            my_size += ::protobuf::rt::value_size(18, *value, ::protobuf::wire_format::WireTypeVarint);
-        };
-        my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
-        self.cached_size.set(my_size);
-        my_size
-    }
-
-    fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream) -> ::protobuf::ProtobufResult<()> {
-        if let Some(v) = self.field_type {
-            try!(os.write_enum(1, v.value()));
-        };
-        if let Some(v) = self.sid {
-            try!(os.write_int32(2, v));
-        };
-        if let Some(v) = self.pid {
-            try!(os.write_int32(3, v));
-        };
-        if let Some(v) = self.alt {
-            try!(os.write_int32(4, v));
-        };
-        if let Some(v) = self.kids {
-            try!(os.write_int32(5, v));
-        };
-        if let Some(v) = self.status {
-            try!(os.write_enum(6, v.value()));
-        };
-        if let Some(v) = self.restart_id {
-            try!(os.write_int32(7, v));
-        };
-        if let Some(v) = self.time {
-            try!(os.write_uint64(8, v));
-        };
-        if let Some(v) = self.thread_id {
-            try!(os.write_int32(9, v));
-        };
-        if let Some(v) = self.label.as_ref() {
-            try!(os.write_string(10, &v));
-        };
-        if let Some(v) = self.domain_size {
-            try!(os.write_float(11, v));
-        };
-        if let Some(v) = self.solution.as_ref() {
-            try!(os.write_string(12, &v));
-        };
-        if let Some(v) = self.nogood.as_ref() {
-            try!(os.write_string(13, &v));
-        };
-        if let Some(v) = self.info.as_ref() {
-            try!(os.write_string(14, &v));
-        };
-        if let Some(v) = self.nogood_bld {
-            try!(os.write_int32(15, v));
-        };
-        if let Some(v) = self.uses_assumptions {
-            try!(os.write_bool(16, v));
-        };
-        if let Some(v) = self.backjump_distance {
-            try!(os.write_int32(17, v));
-        };
-        if let Some(v) = self.decision_level {
-            try!(os.write_int32(18, v));
-        };
-        try!(os.write_unknown_fields(self.get_unknown_fields()));
-        ::std::result::Result::Ok(())
-    }
-
-    fn get_cached_size(&self) -> u32 {
-        self.cached_size.get()
-    }
-
-    fn get_unknown_fields(&self) -> &::protobuf::UnknownFields {
-        &self.unknown_fields
-    }
-
-    fn mut_unknown_fields(&mut self) -> &mut ::protobuf::UnknownFields {
-        &mut self.unknown_fields
-    }
-
-    fn type_id(&self) -> ::std::any::TypeId {
-        ::std::any::TypeId::of::<Node>()
-    }
-
-    fn as_any(&self) -> &::std::any::Any {
-        self as &::std::any::Any
-    }
-
-    fn descriptor(&self) -> &'static ::protobuf::reflect::MessageDescriptor {
-        ::protobuf::MessageStatic::descriptor_static(None::<Self>)
-    }
-}
-
-impl ::protobuf::MessageStatic for Node {
-    fn new() -> Node {
-        Node::new()
-    }
-
-    fn descriptor_static(_: ::std::option::Option<Node>) -> &'static ::protobuf::reflect::MessageDescriptor {
-        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::MessageDescriptor> = ::protobuf::lazy::Lazy {
-            lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const ::protobuf::reflect::MessageDescriptor,
-        };
-        unsafe {
-            descriptor.get(|| {
-                let mut fields = ::std::vec::Vec::new();
-                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
-                    "type",
-                    Node::has_field_type,
-                    Node::get_field_type,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "sid",
-                    Node::has_sid,
-                    Node::get_sid,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "pid",
-                    Node::has_pid,
-                    Node::get_pid,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "alt",
-                    Node::has_alt,
-                    Node::get_alt,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "kids",
-                    Node::has_kids,
-                    Node::get_kids,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_enum_accessor(
-                    "status",
-                    Node::has_status,
-                    Node::get_status,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "restart_id",
-                    Node::has_restart_id,
-                    Node::get_restart_id,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_u64_accessor(
-                    "time",
-                    Node::has_time,
-                    Node::get_time,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "thread_id",
-                    Node::has_thread_id,
-                    Node::get_thread_id,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
-                    "label",
-                    Node::has_label,
-                    Node::get_label,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_f32_accessor(
-                    "domain_size",
-                    Node::has_domain_size,
-                    Node::get_domain_size,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
-                    "solution",
-                    Node::has_solution,
-                    Node::get_solution,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
-                    "nogood",
-                    Node::has_nogood,
-                    Node::get_nogood,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_string_accessor(
-                    "info",
-                    Node::has_info,
-                    Node::get_info,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "nogood_bld",
-                    Node::has_nogood_bld,
-                    Node::get_nogood_bld,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_bool_accessor(
-                    "uses_assumptions",
-                    Node::has_uses_assumptions,
-                    Node::get_uses_assumptions,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "backjump_distance",
-                    Node::has_backjump_distance,
-                    Node::get_backjump_distance,
-                ));
-                fields.push(::protobuf::reflect::accessor::make_singular_i32_accessor(
-                    "decision_level",
-                    Node::has_decision_level,
-                    Node::get_decision_level,
-                ));
-                ::protobuf::reflect::MessageDescriptor::new::<Node>(
-                    "Node",
-                    fields,
-                    file_descriptor_proto()
-                )
-            })
-        }
-    }
-}
-
-impl ::protobuf::Clear for Node {
-    fn clear(&mut self) {
-        self.clear_field_type();
-        self.clear_sid();
-        self.clear_pid();
-        self.clear_alt();
-        self.clear_kids();
-        self.clear_status();
-        self.clear_restart_id();
-        self.clear_time();
-        self.clear_thread_id();
-        self.clear_label();
-        self.clear_domain_size();
-        self.clear_solution();
-        self.clear_nogood();
-        self.clear_info();
-        self.clear_nogood_bld();
-        self.clear_uses_assumptions();
-        self.clear_backjump_distance();
-        self.clear_decision_level();
-        self.unknown_fields.clear();
-    }
-}
-
-impl ::std::cmp::PartialEq for Node {
-    fn eq(&self, other: &Node) -> bool {
-        self.field_type == other.field_type &&
-        self.sid == other.sid &&
-        self.pid == other.pid &&
-        self.alt == other.alt &&
-        self.kids == other.kids &&
-        self.status == other.status &&
-        self.restart_id == other.restart_id &&
-        self.time == other.time &&
-        self.thread_id == other.thread_id &&
-        self.label == other.label &&
-        self.domain_size == other.domain_size &&
-        self.solution == other.solution &&
-        self.nogood == other.nogood &&
-        self.info == other.info &&
-        self.nogood_bld == other.nogood_bld &&
-        self.uses_assumptions == other.uses_assumptions &&
-        self.backjump_distance == other.backjump_distance &&
-        self.decision_level == other.decision_level &&
-        self.unknown_fields == other.unknown_fields
-    }
-}
-
-impl ::std::fmt::Debug for Node {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        ::protobuf::text_format::fmt(self, f)
-    }
-}
-
-#[derive(Clone,PartialEq,Eq,Debug,Hash)]
-pub enum Node_MsgType {
+#[derive(Debug)]
+pub enum Type {
     NODE = 0,
     DONE = 1,
     START = 2,
 }
 
-impl ::protobuf::ProtobufEnum for Node_MsgType {
-    fn value(&self) -> i32 {
-        *self as i32
-    }
-
-    fn from_i32(value: i32) -> ::std::option::Option<Node_MsgType> {
-        match value {
-            0 => ::std::option::Option::Some(Node_MsgType::NODE),
-            1 => ::std::option::Option::Some(Node_MsgType::DONE),
-            2 => ::std::option::Option::Some(Node_MsgType::START),
-            _ => ::std::option::Option::None
-        }
-    }
-
-    fn values() -> &'static [Self] {
-        static values: &'static [Node_MsgType] = &[
-            Node_MsgType::NODE,
-            Node_MsgType::DONE,
-            Node_MsgType::START,
-        ];
-        values
-    }
-
-    fn enum_descriptor_static(_: Option<Node_MsgType>) -> &'static ::protobuf::reflect::EnumDescriptor {
-        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::EnumDescriptor> = ::protobuf::lazy::Lazy {
-            lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const ::protobuf::reflect::EnumDescriptor,
-        };
-        unsafe {
-            descriptor.get(|| {
-                ::protobuf::reflect::EnumDescriptor::new("Node_MsgType", file_descriptor_proto())
-            })
-        }
-    }
-}
-
-impl ::std::marker::Copy for Node_MsgType {
-}
-
-#[derive(Clone,PartialEq,Eq,Debug,Hash)]
-pub enum Node_NodeStatus {
+#[derive(Debug, PartialEq)]
+enum Status {
     SOLVED = 0,
+    ///< Node representing a solution
     FAILED = 1,
+    ///< Node representing failure
     BRANCH = 2,
+    ///< Node representing a branch
     UNDETERMINED = 3,
+    ///< Node that has not been explored yet
     STOP = 4,
+    ///< Node representing stop point
     UNSTOP = 5,
+    ///< Node representing ignored stop point
     SKIPPED = 6,
+    ///< Skipped by backjumping
     MERGING = 7,
 }
 
-impl ::protobuf::ProtobufEnum for Node_NodeStatus {
-    fn value(&self) -> i32 {
-        *self as i32
+#[derive(Debug)]
+enum Field {
+    ID = 0,
+    PID = 1,
+    ALT = 2,
+    KIDS = 3,
+    STATUS = 4,
+    RESTART_ID = 5,
+    THREAD_ID = 6,
+    LABEL = 7,
+    SOLUTION = 8,
+    NOGOOD = 9,
+    INFO = 10,
+}
+
+pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
+    let mut buf = buf.into_iter();
+    let msg_type = deserializeType(&mut buf);
+
+    // println!("msg type: {:?}", msg_type);
+
+    let mut sid: Option<i32> = None;
+    let mut pid: Option<i32> = None;
+    let mut alt: Option<i32> = None;
+    let mut kids: Option<i32> = None;
+    let mut status: Option<Status> = None;
+
+    match msg_type {
+        Type::NODE => {
+            sid = Some(deserializeInt(&mut buf));
+            pid = Some(deserializeInt(&mut buf));
+            alt = Some(deserializeInt(&mut buf));
+            kids = Some(deserializeInt(&mut buf));
+            status = Some(deserializeStatus(&mut buf));
+        }
+        _ => {}
     }
 
-    fn from_i32(value: i32) -> ::std::option::Option<Node_NodeStatus> {
-        match value {
-            0 => ::std::option::Option::Some(Node_NodeStatus::SOLVED),
-            1 => ::std::option::Option::Some(Node_NodeStatus::FAILED),
-            2 => ::std::option::Option::Some(Node_NodeStatus::BRANCH),
-            3 => ::std::option::Option::Some(Node_NodeStatus::UNDETERMINED),
-            4 => ::std::option::Option::Some(Node_NodeStatus::STOP),
-            5 => ::std::option::Option::Some(Node_NodeStatus::UNSTOP),
-            6 => ::std::option::Option::Some(Node_NodeStatus::SKIPPED),
-            7 => ::std::option::Option::Some(Node_NodeStatus::MERGING),
-            _ => ::std::option::Option::None
+    let mut rid: Option<i32> = None;
+    let mut tid: Option<i32> = None;
+    let mut label: Option<String> = None;
+    let mut solution: Option<String> = None;
+    let mut nogood: Option<String> = None;
+    let mut info: Option<String> = None;
+
+    loop {
+
+        // TODO(maxim): Figure out the Field first!!!
+        if let Some(field) = deserializeField(&mut buf) {
+
+            match field {
+                Field::RESTART_ID => {
+                    // println!("RESTART_ID");
+                    rid = Some(deserializeInt(&mut buf));
+                    // println!("rid: {:?}", rid);
+                }
+                Field::THREAD_ID => {
+                    // println!("THREAD_ID");
+                    tid = Some(deserializeInt(&mut buf));
+                    // println!("tid: {:?}", tid);
+                }
+                Field::LABEL => {
+                    // println!("LABEL");
+                    label = Some(deserializeString(&mut buf));
+                    // println!("label: {:?}", label);
+                }
+                Field::SOLUTION => {
+                    // println!("SOLUTION");
+                    solution = Some(deserializeString(&mut buf));
+                    // println!("solution: {:?}", solution);
+                }
+                Field::NOGOOD => {
+                    // println!("NOGOOD");
+                    nogood = Some(deserializeString(&mut buf));
+                    // println!("nogood: {:?}", nogood);
+                }
+                Field::INFO => {
+                    // println!("INFO");
+                    info = Some(deserializeString(&mut buf));
+                    // println!("info: {:?}", info);
+                }
+                _ => {
+                    // println!("unknown field");
+                }
+            }
+
+        } else {
+            break;
         }
     }
 
-    fn values() -> &'static [Self] {
-        static values: &'static [Node_NodeStatus] = &[
-            Node_NodeStatus::SOLVED,
-            Node_NodeStatus::FAILED,
-            Node_NodeStatus::BRANCH,
-            Node_NodeStatus::UNDETERMINED,
-            Node_NodeStatus::STOP,
-            Node_NodeStatus::UNSTOP,
-            Node_NodeStatus::SKIPPED,
-            Node_NodeStatus::MERGING,
-        ];
-        values
-    }
+    let msg = match msg_type {
+        Type::START => Message::START { rid, name: label },
+        Type::DONE => Message::DONE,
+        Type::NODE => {
 
-    fn enum_descriptor_static(_: Option<Node_NodeStatus>) -> &'static ::protobuf::reflect::EnumDescriptor {
-        static mut descriptor: ::protobuf::lazy::Lazy<::protobuf::reflect::EnumDescriptor> = ::protobuf::lazy::Lazy {
-            lock: ::protobuf::lazy::ONCE_INIT,
-            ptr: 0 as *const ::protobuf::reflect::EnumDescriptor,
-        };
-        unsafe {
-            descriptor.get(|| {
-                ::protobuf::reflect::EnumDescriptor::new("Node_NodeStatus", file_descriptor_proto())
-            })
+            Message::NODE {
+                sid: sid.unwrap(),
+                pid: pid.unwrap(),
+                alt: alt.unwrap(),
+                kids: kids.unwrap(),
+                status: status.unwrap(),
+                rid,
+                tid,
+                label,
+                solution,
+                nogood,
+                info,
+            }
         }
+    };
+
+    Ok(msg)
+}
+
+fn deserializeType(buf: &mut std::slice::Iter<u8>) -> Type {
+    match *buf.next().unwrap() {
+        0 => Type::NODE,
+        1 => Type::DONE,
+        2 => Type::START,
+        _ => panic!(),
     }
 }
 
-impl ::std::marker::Copy for Node_NodeStatus {
+fn deserializeInt(buf: &mut std::slice::Iter<u8>) -> i32 {
+    let b1 = *buf.next().unwrap() as i32;
+    let b2 = *buf.next().unwrap() as i32;
+    let b3 = *buf.next().unwrap() as i32;
+    let b4 = *buf.next().unwrap() as i32;
+
+    let res: i32 = b1 << 24 | b2 << 16 | b3 << 8 | b4;
+
+    // println!("res: {:?}", res);
+    res
 }
 
-static file_descriptor_proto_data: &'static [u8] = &[
-    0x0a, 0x0d, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-    0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x92, 0x04, 0x0a, 0x04, 0x4e, 0x6f, 0x64,
-    0x65, 0x12, 0x23, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x02, 0x28, 0x0e, 0x32,
-    0x15, 0x2e, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x2e, 0x4d,
-    0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0b, 0x0a, 0x03, 0x73, 0x69, 0x64, 0x18, 0x02, 0x20,
-    0x01, 0x28, 0x05, 0x12, 0x0b, 0x0a, 0x03, 0x70, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05,
-    0x12, 0x0b, 0x0a, 0x03, 0x61, 0x6c, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x12, 0x0c, 0x0a,
-    0x04, 0x6b, 0x69, 0x64, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x05, 0x12, 0x28, 0x0a, 0x06, 0x73,
-    0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x6d, 0x65,
-    0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x53,
-    0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x12, 0x0a, 0x0a, 0x72, 0x65, 0x73, 0x74, 0x61, 0x72, 0x74,
-    0x5f, 0x69, 0x64, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x12, 0x0c, 0x0a, 0x04, 0x74, 0x69, 0x6d,
-    0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x04, 0x12, 0x11, 0x0a, 0x09, 0x74, 0x68, 0x72, 0x65, 0x61,
-    0x64, 0x5f, 0x69, 0x64, 0x18, 0x09, 0x20, 0x01, 0x28, 0x05, 0x12, 0x0d, 0x0a, 0x05, 0x6c, 0x61,
-    0x62, 0x65, 0x6c, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x12, 0x13, 0x0a, 0x0b, 0x64, 0x6f, 0x6d,
-    0x61, 0x69, 0x6e, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x02, 0x12, 0x10,
-    0x0a, 0x08, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09,
-    0x12, 0x0e, 0x0a, 0x06, 0x6e, 0x6f, 0x67, 0x6f, 0x6f, 0x64, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x09,
-    0x12, 0x0c, 0x0a, 0x04, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x09, 0x12, 0x12,
-    0x0a, 0x0a, 0x6e, 0x6f, 0x67, 0x6f, 0x6f, 0x64, 0x5f, 0x62, 0x6c, 0x64, 0x18, 0x0f, 0x20, 0x01,
-    0x28, 0x05, 0x12, 0x18, 0x0a, 0x10, 0x75, 0x73, 0x65, 0x73, 0x5f, 0x61, 0x73, 0x73, 0x75, 0x6d,
-    0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x10, 0x20, 0x01, 0x28, 0x08, 0x12, 0x19, 0x0a, 0x11,
-    0x62, 0x61, 0x63, 0x6b, 0x6a, 0x75, 0x6d, 0x70, 0x5f, 0x64, 0x69, 0x73, 0x74, 0x61, 0x6e, 0x63,
-    0x65, 0x18, 0x11, 0x20, 0x01, 0x28, 0x05, 0x12, 0x16, 0x0a, 0x0e, 0x64, 0x65, 0x63, 0x69, 0x73,
-    0x69, 0x6f, 0x6e, 0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x18, 0x12, 0x20, 0x01, 0x28, 0x05, 0x22,
-    0x28, 0x0a, 0x07, 0x4d, 0x73, 0x67, 0x54, 0x79, 0x70, 0x65, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x4f,
-    0x44, 0x45, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x44, 0x4f, 0x4e, 0x45, 0x10, 0x01, 0x12, 0x09,
-    0x0a, 0x05, 0x53, 0x54, 0x41, 0x52, 0x54, 0x10, 0x02, 0x22, 0x72, 0x0a, 0x0a, 0x4e, 0x6f, 0x64,
-    0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0a, 0x0a, 0x06, 0x53, 0x4f, 0x4c, 0x56, 0x45,
-    0x44, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44, 0x10, 0x01, 0x12,
-    0x0a, 0x0a, 0x06, 0x42, 0x52, 0x41, 0x4e, 0x43, 0x48, 0x10, 0x02, 0x12, 0x10, 0x0a, 0x0c, 0x55,
-    0x4e, 0x44, 0x45, 0x54, 0x45, 0x52, 0x4d, 0x49, 0x4e, 0x45, 0x44, 0x10, 0x03, 0x12, 0x08, 0x0a,
-    0x04, 0x53, 0x54, 0x4f, 0x50, 0x10, 0x04, 0x12, 0x0a, 0x0a, 0x06, 0x55, 0x4e, 0x53, 0x54, 0x4f,
-    0x50, 0x10, 0x05, 0x12, 0x0b, 0x0a, 0x07, 0x53, 0x4b, 0x49, 0x50, 0x50, 0x45, 0x44, 0x10, 0x06,
-    0x12, 0x0b, 0x0a, 0x07, 0x4d, 0x45, 0x52, 0x47, 0x49, 0x4e, 0x47, 0x10, 0x07, 0x42, 0x17, 0x0a,
-    0x15, 0x63, 0x6f, 0x6d, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x70, 0x70, 0x72,
-    0x6f, 0x66, 0x69, 0x6c, 0x65, 0x72, 0x4a, 0x85, 0x11, 0x0a, 0x06, 0x12, 0x04, 0x02, 0x00, 0x2d,
-    0x01, 0x0a, 0x08, 0x0a, 0x01, 0x02, 0x12, 0x03, 0x02, 0x08, 0x0f, 0x0a, 0x08, 0x0a, 0x01, 0x08,
-    0x12, 0x03, 0x04, 0x00, 0x2e, 0x0a, 0x0b, 0x0a, 0x04, 0x08, 0xe7, 0x07, 0x00, 0x12, 0x03, 0x04,
-    0x00, 0x2e, 0x0a, 0x0c, 0x0a, 0x05, 0x08, 0xe7, 0x07, 0x00, 0x02, 0x12, 0x03, 0x04, 0x07, 0x13,
-    0x0a, 0x0d, 0x0a, 0x06, 0x08, 0xe7, 0x07, 0x00, 0x02, 0x00, 0x12, 0x03, 0x04, 0x07, 0x13, 0x0a,
-    0x0e, 0x0a, 0x07, 0x08, 0xe7, 0x07, 0x00, 0x02, 0x00, 0x01, 0x12, 0x03, 0x04, 0x07, 0x13, 0x0a,
-    0x0c, 0x0a, 0x05, 0x08, 0xe7, 0x07, 0x00, 0x07, 0x12, 0x03, 0x04, 0x16, 0x2d, 0x0a, 0x0a, 0x0a,
-    0x02, 0x04, 0x00, 0x12, 0x04, 0x06, 0x00, 0x2d, 0x01, 0x0a, 0x0a, 0x0a, 0x03, 0x04, 0x00, 0x01,
-    0x12, 0x03, 0x06, 0x08, 0x0c, 0x0a, 0x0c, 0x0a, 0x04, 0x04, 0x00, 0x04, 0x00, 0x12, 0x04, 0x08,
-    0x02, 0x0c, 0x03, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x04, 0x00, 0x01, 0x12, 0x03, 0x08, 0x07,
-    0x0e, 0x0a, 0x0d, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x00, 0x02, 0x00, 0x12, 0x03, 0x09, 0x04, 0x0e,
-    0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x00, 0x01, 0x12, 0x03, 0x09, 0x04, 0x08,
-    0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x00, 0x02, 0x12, 0x03, 0x09, 0x0c, 0x0d,
-    0x0a, 0x0d, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x00, 0x02, 0x01, 0x12, 0x03, 0x0a, 0x04, 0x0e, 0x0a,
-    0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x01, 0x01, 0x12, 0x03, 0x0a, 0x04, 0x08, 0x0a,
-    0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x01, 0x02, 0x12, 0x03, 0x0a, 0x0c, 0x0d, 0x0a,
-    0x0d, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x00, 0x02, 0x02, 0x12, 0x03, 0x0b, 0x04, 0x0e, 0x0a, 0x0e,
-    0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x02, 0x01, 0x12, 0x03, 0x0b, 0x04, 0x09, 0x0a, 0x0e,
-    0x0a, 0x07, 0x04, 0x00, 0x04, 0x00, 0x02, 0x02, 0x02, 0x12, 0x03, 0x0b, 0x0c, 0x0d, 0x0a, 0x0c,
-    0x0a, 0x04, 0x04, 0x00, 0x04, 0x01, 0x12, 0x04, 0x0e, 0x02, 0x17, 0x03, 0x0a, 0x0c, 0x0a, 0x05,
-    0x04, 0x00, 0x04, 0x01, 0x01, 0x12, 0x03, 0x0e, 0x07, 0x11, 0x0a, 0x2f, 0x0a, 0x06, 0x04, 0x00,
-    0x04, 0x01, 0x02, 0x00, 0x12, 0x03, 0x0f, 0x04, 0x15, 0x22, 0x20, 0x2f, 0x3c, 0x20, 0x4e, 0x6f,
-    0x64, 0x65, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74, 0x69, 0x6e, 0x67, 0x20,
-    0x61, 0x20, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04,
-    0x00, 0x04, 0x01, 0x02, 0x00, 0x01, 0x12, 0x03, 0x0f, 0x04, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04,
-    0x00, 0x04, 0x01, 0x02, 0x00, 0x02, 0x12, 0x03, 0x0f, 0x13, 0x14, 0x0a, 0x2c, 0x0a, 0x06, 0x04,
-    0x00, 0x04, 0x01, 0x02, 0x01, 0x12, 0x03, 0x10, 0x04, 0x15, 0x22, 0x1d, 0x2f, 0x3c, 0x20, 0x4e,
-    0x6f, 0x64, 0x65, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74, 0x69, 0x6e, 0x67,
-    0x20, 0x66, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04,
-    0x01, 0x02, 0x01, 0x01, 0x12, 0x03, 0x10, 0x04, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04,
-    0x01, 0x02, 0x01, 0x02, 0x12, 0x03, 0x10, 0x13, 0x14, 0x0a, 0x2d, 0x0a, 0x06, 0x04, 0x00, 0x04,
-    0x01, 0x02, 0x02, 0x12, 0x03, 0x11, 0x04, 0x15, 0x22, 0x1e, 0x2f, 0x3c, 0x20, 0x4e, 0x6f, 0x64,
-    0x65, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74, 0x69, 0x6e, 0x67, 0x20, 0x61,
-    0x20, 0x62, 0x72, 0x61, 0x6e, 0x63, 0x68, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01,
-    0x02, 0x02, 0x01, 0x12, 0x03, 0x11, 0x04, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01,
-    0x02, 0x02, 0x02, 0x12, 0x03, 0x11, 0x13, 0x14, 0x0a, 0x36, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x01,
-    0x02, 0x03, 0x12, 0x03, 0x12, 0x04, 0x15, 0x22, 0x27, 0x2f, 0x3c, 0x20, 0x4e, 0x6f, 0x64, 0x65,
-    0x20, 0x74, 0x68, 0x61, 0x74, 0x20, 0x68, 0x61, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x62, 0x65,
-    0x65, 0x6e, 0x20, 0x65, 0x78, 0x70, 0x6c, 0x6f, 0x72, 0x65, 0x64, 0x20, 0x79, 0x65, 0x74, 0x0a,
-    0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x03, 0x01, 0x12, 0x03, 0x12, 0x04, 0x10,
-    0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x03, 0x02, 0x12, 0x03, 0x12, 0x13, 0x14,
-    0x0a, 0x2f, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x01, 0x02, 0x04, 0x12, 0x03, 0x13, 0x04, 0x15, 0x22,
-    0x20, 0x2f, 0x3c, 0x20, 0x4e, 0x6f, 0x64, 0x65, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73, 0x65,
-    0x6e, 0x74, 0x69, 0x6e, 0x67, 0x20, 0x73, 0x74, 0x6f, 0x70, 0x20, 0x70, 0x6f, 0x69, 0x6e, 0x74,
-    0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x04, 0x01, 0x12, 0x03, 0x13, 0x04,
-    0x08, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x04, 0x02, 0x12, 0x03, 0x13, 0x13,
-    0x14, 0x0a, 0x37, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x01, 0x02, 0x05, 0x12, 0x03, 0x14, 0x04, 0x15,
-    0x22, 0x28, 0x2f, 0x3c, 0x20, 0x4e, 0x6f, 0x64, 0x65, 0x20, 0x72, 0x65, 0x70, 0x72, 0x65, 0x73,
-    0x65, 0x6e, 0x74, 0x69, 0x6e, 0x67, 0x20, 0x69, 0x67, 0x6e, 0x6f, 0x72, 0x65, 0x64, 0x20, 0x73,
-    0x74, 0x6f, 0x70, 0x20, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00,
-    0x04, 0x01, 0x02, 0x05, 0x01, 0x12, 0x03, 0x14, 0x04, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00,
-    0x04, 0x01, 0x02, 0x05, 0x02, 0x12, 0x03, 0x14, 0x13, 0x14, 0x0a, 0x29, 0x0a, 0x06, 0x04, 0x00,
-    0x04, 0x01, 0x02, 0x06, 0x12, 0x03, 0x15, 0x04, 0x15, 0x22, 0x1a, 0x2f, 0x3c, 0x20, 0x53, 0x6b,
-    0x69, 0x70, 0x70, 0x65, 0x64, 0x20, 0x62, 0x79, 0x20, 0x62, 0x61, 0x63, 0x6b, 0x6a, 0x75, 0x6d,
-    0x70, 0x69, 0x6e, 0x67, 0x0a, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x06, 0x01,
-    0x12, 0x03, 0x15, 0x04, 0x0b, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x06, 0x02,
-    0x12, 0x03, 0x15, 0x13, 0x14, 0x0a, 0x0d, 0x0a, 0x06, 0x04, 0x00, 0x04, 0x01, 0x02, 0x07, 0x12,
-    0x03, 0x16, 0x04, 0x15, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x07, 0x01, 0x12,
-    0x03, 0x16, 0x04, 0x0b, 0x0a, 0x0e, 0x0a, 0x07, 0x04, 0x00, 0x04, 0x01, 0x02, 0x07, 0x02, 0x12,
-    0x03, 0x16, 0x13, 0x14, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x00, 0x12, 0x03, 0x19, 0x02,
-    0x1c, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x00, 0x04, 0x12, 0x03, 0x19, 0x02, 0x0a, 0x0a,
-    0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x00, 0x06, 0x12, 0x03, 0x19, 0x0b, 0x12, 0x0a, 0x0c, 0x0a,
-    0x05, 0x04, 0x00, 0x02, 0x00, 0x01, 0x12, 0x03, 0x19, 0x13, 0x17, 0x0a, 0x0c, 0x0a, 0x05, 0x04,
-    0x00, 0x02, 0x00, 0x03, 0x12, 0x03, 0x19, 0x1a, 0x1b, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02,
-    0x01, 0x12, 0x03, 0x1b, 0x02, 0x1a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x01, 0x04, 0x12,
-    0x03, 0x1b, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x01, 0x05, 0x12, 0x03, 0x1b,
-    0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x01, 0x01, 0x12, 0x03, 0x1b, 0x11, 0x14,
-    0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x01, 0x03, 0x12, 0x03, 0x1b, 0x18, 0x19, 0x0a, 0x0b,
-    0x0a, 0x04, 0x04, 0x00, 0x02, 0x02, 0x12, 0x03, 0x1c, 0x02, 0x1a, 0x0a, 0x0c, 0x0a, 0x05, 0x04,
-    0x00, 0x02, 0x02, 0x04, 0x12, 0x03, 0x1c, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02,
-    0x02, 0x05, 0x12, 0x03, 0x1c, 0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x02, 0x01,
-    0x12, 0x03, 0x1c, 0x11, 0x14, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x02, 0x03, 0x12, 0x03,
-    0x1c, 0x18, 0x19, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x03, 0x12, 0x03, 0x1d, 0x02, 0x1a,
-    0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x03, 0x04, 0x12, 0x03, 0x1d, 0x02, 0x0a, 0x0a, 0x0c,
-    0x0a, 0x05, 0x04, 0x00, 0x02, 0x03, 0x05, 0x12, 0x03, 0x1d, 0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05,
-    0x04, 0x00, 0x02, 0x03, 0x01, 0x12, 0x03, 0x1d, 0x11, 0x14, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00,
-    0x02, 0x03, 0x03, 0x12, 0x03, 0x1d, 0x18, 0x19, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x04,
-    0x12, 0x03, 0x1e, 0x02, 0x1a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x04, 0x04, 0x12, 0x03,
-    0x1e, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x04, 0x05, 0x12, 0x03, 0x1e, 0x0b,
-    0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x04, 0x01, 0x12, 0x03, 0x1e, 0x11, 0x15, 0x0a,
-    0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x04, 0x03, 0x12, 0x03, 0x1e, 0x18, 0x19, 0x0a, 0x0b, 0x0a,
-    0x04, 0x04, 0x00, 0x02, 0x05, 0x12, 0x03, 0x20, 0x02, 0x22, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00,
-    0x02, 0x05, 0x04, 0x12, 0x03, 0x20, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x05,
-    0x06, 0x12, 0x03, 0x20, 0x0b, 0x15, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x05, 0x01, 0x12,
-    0x03, 0x20, 0x16, 0x1c, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x05, 0x03, 0x12, 0x03, 0x20,
-    0x20, 0x21, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x06, 0x12, 0x03, 0x21, 0x02, 0x22, 0x0a,
-    0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x06, 0x04, 0x12, 0x03, 0x21, 0x02, 0x0a, 0x0a, 0x0c, 0x0a,
-    0x05, 0x04, 0x00, 0x02, 0x06, 0x05, 0x12, 0x03, 0x21, 0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04,
-    0x00, 0x02, 0x06, 0x01, 0x12, 0x03, 0x21, 0x12, 0x1c, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02,
-    0x06, 0x03, 0x12, 0x03, 0x21, 0x20, 0x21, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x07, 0x12,
-    0x03, 0x22, 0x02, 0x22, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x07, 0x04, 0x12, 0x03, 0x22,
-    0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x07, 0x05, 0x12, 0x03, 0x22, 0x0b, 0x11,
-    0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x07, 0x01, 0x12, 0x03, 0x22, 0x12, 0x16, 0x0a, 0x0c,
-    0x0a, 0x05, 0x04, 0x00, 0x02, 0x07, 0x03, 0x12, 0x03, 0x22, 0x20, 0x21, 0x0a, 0x0b, 0x0a, 0x04,
-    0x04, 0x00, 0x02, 0x08, 0x12, 0x03, 0x23, 0x02, 0x22, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02,
-    0x08, 0x04, 0x12, 0x03, 0x23, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x08, 0x05,
-    0x12, 0x03, 0x23, 0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x08, 0x01, 0x12, 0x03,
-    0x23, 0x12, 0x1b, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x08, 0x03, 0x12, 0x03, 0x23, 0x20,
-    0x21, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x09, 0x12, 0x03, 0x24, 0x02, 0x23, 0x0a, 0x0c,
-    0x0a, 0x05, 0x04, 0x00, 0x02, 0x09, 0x04, 0x12, 0x03, 0x24, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05,
-    0x04, 0x00, 0x02, 0x09, 0x05, 0x12, 0x03, 0x24, 0x0b, 0x11, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00,
-    0x02, 0x09, 0x01, 0x12, 0x03, 0x24, 0x12, 0x17, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x09,
-    0x03, 0x12, 0x03, 0x24, 0x20, 0x22, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x0a, 0x12, 0x03,
-    0x25, 0x02, 0x23, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0a, 0x04, 0x12, 0x03, 0x25, 0x02,
-    0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0a, 0x05, 0x12, 0x03, 0x25, 0x0b, 0x10, 0x0a,
-    0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0a, 0x01, 0x12, 0x03, 0x25, 0x12, 0x1d, 0x0a, 0x0c, 0x0a,
-    0x05, 0x04, 0x00, 0x02, 0x0a, 0x03, 0x12, 0x03, 0x25, 0x20, 0x22, 0x0a, 0x0b, 0x0a, 0x04, 0x04,
-    0x00, 0x02, 0x0b, 0x12, 0x03, 0x26, 0x02, 0x23, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0b,
-    0x04, 0x12, 0x03, 0x26, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0b, 0x05, 0x12,
-    0x03, 0x26, 0x0b, 0x11, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0b, 0x01, 0x12, 0x03, 0x26,
-    0x12, 0x1a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0b, 0x03, 0x12, 0x03, 0x26, 0x20, 0x22,
-    0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x0c, 0x12, 0x03, 0x27, 0x02, 0x23, 0x0a, 0x0c, 0x0a,
-    0x05, 0x04, 0x00, 0x02, 0x0c, 0x04, 0x12, 0x03, 0x27, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04,
-    0x00, 0x02, 0x0c, 0x05, 0x12, 0x03, 0x27, 0x0b, 0x11, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02,
-    0x0c, 0x01, 0x12, 0x03, 0x27, 0x12, 0x18, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0c, 0x03,
-    0x12, 0x03, 0x27, 0x20, 0x22, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x0d, 0x12, 0x03, 0x28,
-    0x02, 0x23, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0d, 0x04, 0x12, 0x03, 0x28, 0x02, 0x0a,
-    0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0d, 0x05, 0x12, 0x03, 0x28, 0x0b, 0x11, 0x0a, 0x0c,
-    0x0a, 0x05, 0x04, 0x00, 0x02, 0x0d, 0x01, 0x12, 0x03, 0x28, 0x12, 0x16, 0x0a, 0x0c, 0x0a, 0x05,
-    0x04, 0x00, 0x02, 0x0d, 0x03, 0x12, 0x03, 0x28, 0x20, 0x22, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00,
-    0x02, 0x0e, 0x12, 0x03, 0x29, 0x02, 0x23, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0e, 0x04,
-    0x12, 0x03, 0x29, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0e, 0x05, 0x12, 0x03,
-    0x29, 0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0e, 0x01, 0x12, 0x03, 0x29, 0x12,
-    0x1c, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0e, 0x03, 0x12, 0x03, 0x29, 0x20, 0x22, 0x0a,
-    0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x0f, 0x12, 0x03, 0x2a, 0x02, 0x28, 0x0a, 0x0c, 0x0a, 0x05,
-    0x04, 0x00, 0x02, 0x0f, 0x04, 0x12, 0x03, 0x2a, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00,
-    0x02, 0x0f, 0x05, 0x12, 0x03, 0x2a, 0x0b, 0x0f, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0f,
-    0x01, 0x12, 0x03, 0x2a, 0x12, 0x22, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x0f, 0x03, 0x12,
-    0x03, 0x2a, 0x25, 0x27, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02, 0x10, 0x12, 0x03, 0x2b, 0x02,
-    0x29, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x10, 0x04, 0x12, 0x03, 0x2b, 0x02, 0x0a, 0x0a,
-    0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x10, 0x05, 0x12, 0x03, 0x2b, 0x0b, 0x10, 0x0a, 0x0c, 0x0a,
-    0x05, 0x04, 0x00, 0x02, 0x10, 0x01, 0x12, 0x03, 0x2b, 0x12, 0x23, 0x0a, 0x0c, 0x0a, 0x05, 0x04,
-    0x00, 0x02, 0x10, 0x03, 0x12, 0x03, 0x2b, 0x26, 0x28, 0x0a, 0x0b, 0x0a, 0x04, 0x04, 0x00, 0x02,
-    0x11, 0x12, 0x03, 0x2c, 0x02, 0x26, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x11, 0x04, 0x12,
-    0x03, 0x2c, 0x02, 0x0a, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x11, 0x05, 0x12, 0x03, 0x2c,
-    0x0b, 0x10, 0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x11, 0x01, 0x12, 0x03, 0x2c, 0x12, 0x20,
-    0x0a, 0x0c, 0x0a, 0x05, 0x04, 0x00, 0x02, 0x11, 0x03, 0x12, 0x03, 0x2c, 0x23, 0x25,
-];
-
-static mut file_descriptor_proto_lazy: ::protobuf::lazy::Lazy<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::lazy::Lazy {
-    lock: ::protobuf::lazy::ONCE_INIT,
-    ptr: 0 as *const ::protobuf::descriptor::FileDescriptorProto,
-};
-
-fn parse_descriptor_proto() -> ::protobuf::descriptor::FileDescriptorProto {
-    ::protobuf::parse_from_bytes(file_descriptor_proto_data).unwrap()
+fn deserializeStatus(buf: &mut std::slice::Iter<u8>) -> Status {
+    match *buf.next().unwrap() {
+        0 => Status::SOLVED,
+        1 => Status::FAILED,
+        2 => Status::BRANCH,
+        6 => Status::SKIPPED,
+        _ => panic!(),
+    }
 }
 
-pub fn file_descriptor_proto() -> &'static ::protobuf::descriptor::FileDescriptorProto {
-    unsafe {
-        file_descriptor_proto_lazy.get(|| {
-            parse_descriptor_proto()
-        })
+fn deserializeString(mut buf: &mut std::slice::Iter<u8>) -> String {
+    let len = deserializeInt(&mut buf);
+
+    let mut res = String::new();
+
+    for i in 0..len {
+        let c = *buf.next().unwrap() as char;
+        res.push(c);
+    }
+    res
+}
+
+fn deserializeField(buf: &mut std::slice::Iter<u8>) -> Option<Field> {
+
+    match buf.next() {
+        Some(&0) => Some(Field::ID),
+        Some(&1) => Some(Field::PID),
+        Some(&2) => Some(Field::ALT),
+        Some(&3) => Some(Field::KIDS),
+        Some(&4) => Some(Field::STATUS),
+        Some(&5) => Some(Field::RESTART_ID),
+        Some(&6) => Some(Field::THREAD_ID),
+        Some(&7) => Some(Field::LABEL),
+        Some(&8) => Some(Field::SOLUTION),
+        Some(&9) => Some(Field::NOGOOD),
+        Some(&10) => Some(Field::INFO),
+        _ => None,
     }
 }

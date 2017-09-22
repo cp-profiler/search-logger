@@ -5,4 +5,4 @@ authors = ["Maxim Shishmarev <maxim.shishmarev@monash.edu>"]
 
 [dependencies]
 byteorder = "0.5.3"
-[dependencies.protobuf]
+clap = "2.22.2"

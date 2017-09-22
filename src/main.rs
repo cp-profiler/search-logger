@@ -1,76 +1,142 @@
-extern crate protobuf;
 extern crate byteorder;
+extern crate clap;
 
 mod message;
 
+
+use clap::Arg;
+
 use std::io::prelude::*;
-use std::net::{TcpListener};
+use std::net::TcpListener;
 use std::fs::File;
+use std::error::Error;
 
 use message::Node;
 
 use byteorder::{LittleEndian, ByteOrder};
 
-fn read_stream(mut stream: std::net::TcpStream, path: String) {
+fn read_stream(mut stream: std::net::TcpStream, path: &str, debug: bool) {
 
-	let mut file = File::create(path).unwrap();
-	let mut nodes_str = Vec::<String>::new();
+    let mut file = File::create(path).unwrap();
 
-	loop {
-		let mut buffer = [0; 4];
 
-		stream.read_exact(&mut buffer).unwrap();
+    loop {
 
-		file.write_all(&buffer).unwrap();
+        if debug {
+            println!("Press <ENTER> to send next node\n");
+            let mut line = String::new();
+            std::io::stdin().read_line(&mut line);
+        }
 
-		println!("{:?}", buffer);
+        let mut buffer = [0; 4];
 
-		let len = LittleEndian::read_u32(&buffer);
+        stream.read_exact(&mut buffer).unwrap();
 
-		let mut buf: Vec<u8> = Vec::new();
-		buf.resize(len as usize, 0);
-		let mut buf = buf.into_boxed_slice();
+        file.write_all(&buffer).unwrap();
 
-		stream.read_exact(&mut buf).unwrap();
+        let len = LittleEndian::read_u32(&buffer);
 
-		file.write_all(&buf).unwrap();
+        let mut buf: Vec<u8> = Vec::new();
+        buf.resize(len as usize, 0);
+        let mut buf = buf.into_boxed_slice();
 
-		let node = protobuf::core::parse_from_bytes::<Node>(&buf).unwrap();
+        stream.read_exact(&mut buf).unwrap();
 
-		println!("{:?}", node);
+        file.write_all(&buf).unwrap();
 
-		let node_str:String = protobuf::text_format::print_to_string(&node);;
+        let msg = match message::parse_from_bytes(&buf) {
+            Ok(v) => v,
+            Err(e) => {
+                println!("{:?}", e);
+                std::process::exit(0);
+            }
+        };
 
-		nodes_str.push(node_str);
+        if debug {
+            println!("{:?}", msg);
+        }
 
-		if node.get_field_type() == message::Node_MsgType::DONE {
-			break;
-		}
-	}
+        match msg {
+            message::Message::NODE {
+                ref sid,
+                ref pid,
+                ref alt,
+                ref kids,
+                ref status,
+                ref tid,
+                ref rid,
+                ref label,
+                ref solution,
+                ref nogood,
+                ref info,
+            } => {
+              // if tid.unwrap() != 0 {
+              //   println!("sid: {:?}", sid);
+              //   println!("tid: {:?}", tid);
+              // }
+            },
+            message::Message::START{ref rid, ref name} => {
+                println!("START");
+            },
+            _ => {}
+        };
+
+
+
+        if msg == message::Message::DONE {
+            println!("done, break");
+            break;
+        }
+
+    }
 
 }
 
 fn main() {
 
-	let mut path = String::from("data.log");
-	let args : Vec<String> = std::env::args().collect();
+    let args = clap::App::new("Search Logger")
+        .version("1.0")
+        .about("Prints nodes and/or wirtes them to a file.")
+        .author("Maxim Shishmarev")
+        .arg(Arg::with_name("file")
+                 .help("Sets the input file to use")
+                 .required(false)
+                 .index(1))
+        .arg(Arg::with_name("print only")
+                 .short("p")
+                 .long("print-only")
+                 .help("Whether to print only or write to a file as well.")
+                 .takes_value(false))
+        .arg(Arg::with_name("debug")
+                 .short("d")
+                 .long("debug")
+                 .help("Allows to send nodes one-by-one.")
+                 .takes_value(false))
+        .get_matches();
 
-	if args.len() == 1 {
-		println!("Using default path: {}", path);
-	} else if args.len() != 2 {
-		println!("Usage: .\\rust-reader <path>");
-		std::process::exit(0);
-	} else {
-		path = args[1].clone();
-		println!("Using path: {}", path);
-	}
+    let path = args.value_of("file").unwrap_or("data.log");
+    let print_only = args.is_present("print only");
+    let debug = args.is_present("debug");
 
-	let listener = TcpListener::bind("127.0.0.1:6565").unwrap();
-	println!("Listening on 127.0.0.1:6565");
+    println!("path: {:?}", path);
+    println!("print only: {:?}", debug);
 
-	let (stream, _) = listener.accept().unwrap();
+    let listener = match TcpListener::bind("127.0.0.1:6565") {
+        Ok(v) => v,
+        Err(e) => {
+            if e.kind() == std::io::ErrorKind::AddrInUse {
+                println!("Port 6565 in use");
+            } else {
+                println!("{:?}", e.kind());
+            }
+            std::process::exit(0);
+        }
+    };
+    println!("Listening on 127.0.0.1:6565");
 
-	read_stream(stream, path);
+    let (stream, _) = listener.accept().unwrap();
 
-	drop(listener);
+    read_stream(stream, path, debug);
+
+    drop(listener);
 }
