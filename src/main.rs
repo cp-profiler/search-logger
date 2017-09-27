@@ -58,30 +58,20 @@ fn read_stream(mut stream: std::net::TcpStream, path: &str, debug: bool) {
 
         match msg {
             message::Message::NODE {
-                ref sid,
-                ref pid,
+                ref n_uid,
+                ref p_uid,
                 ref alt,
                 ref kids,
                 ref status,
-                ref tid,
-                ref rid,
                 ref label,
-                ref solution,
                 ref nogood,
                 ref info,
-            } => {
-              // if tid.unwrap() != 0 {
-              //   println!("sid: {:?}", sid);
-              //   println!("tid: {:?}", tid);
-              // }
-            },
-            message::Message::START{ref rid, ref name} => {
+            } => {},
+            message::Message::START{ref version, ref info} => {
                 println!("START");
             },
             _ => {}
         };
-
-
 
         if msg == message::Message::DONE {
             println!("done, break");

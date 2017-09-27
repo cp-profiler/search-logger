@@ -3,31 +3,38 @@ use std;
 
 #[derive(Debug, PartialEq)]
 pub enum Message {
-    START {
-        rid: Option<i32>,
-        name: Option<String>,
-    },
-    DONE,
     NODE {
-        sid: i32,
-        pid: i32,
+        n_uid: NodeUID,
+        p_uid: NodeUID,
         alt: i32,
         kids: i32,
         status: Status,
-        rid: Option<i32>,
-        tid: Option<i32>,
         label: Option<String>,
-        solution: Option<String>,
         nogood: Option<String>,
         info: Option<String>,
     },
+    DONE,
+    START {
+        info: Option<String>,
+        version: i32,
+    },
+    RESTART {
+        info: Option<String>,
+    }
+}
+
+#[derive(Debug, PartialEq)]
+pub struct NodeUID {
+    nid: i32,
+    rid: i32,
+    tid: i32,
 }
 
 #[derive(Debug)]
 pub struct Node {
     msg_type: Type,
-    sid: Option<i32>,
-    pid: Option<i32>,
+    n_uid: Option<NodeUID>,
+    p_uid: Option<NodeUID>,
     alt: Option<i32>,
     kids: Option<i32>,
     status: Option<Status>,
@@ -44,58 +51,44 @@ pub enum Type {
     NODE = 0,
     DONE = 1,
     START = 2,
+    RESTART = 3
 }
 
 #[derive(Debug, PartialEq)]
 enum Status {
-    SOLVED = 0,
     ///< Node representing a solution
-    FAILED = 1,
+    SOLVED = 0,
     ///< Node representing failure
-    BRANCH = 2,
+    FAILED = 1,
     ///< Node representing a branch
-    UNDETERMINED = 3,
-    ///< Node that has not been explored yet
-    STOP = 4,
-    ///< Node representing stop point
-    UNSTOP = 5,
-    ///< Node representing ignored stop point
-    SKIPPED = 6,
+    BRANCH = 2,
     ///< Skipped by backjumping
-    MERGING = 7,
+    SKIPPED = 3,
 }
 
 #[derive(Debug)]
 enum Field {
-    ID = 0,
-    PID = 1,
-    ALT = 2,
-    KIDS = 3,
-    STATUS = 4,
-    RESTART_ID = 5,
-    THREAD_ID = 6,
-    LABEL = 7,
-    SOLUTION = 8,
-    NOGOOD = 9,
-    INFO = 10,
+    LABEL = 0,
+    NOGOOD = 1,
+    INFO = 2,
+    VERSION = 3
 }
 
 pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
     let mut buf = buf.into_iter();
     let msg_type = deserializeType(&mut buf);
 
-    // println!("msg type: {:?}", msg_type);
+    let mut n_uid: Option<NodeUID> = None;
+    let mut p_uid: Option<NodeUID> = None;
 
-    let mut sid: Option<i32> = None;
-    let mut pid: Option<i32> = None;
     let mut alt: Option<i32> = None;
     let mut kids: Option<i32> = None;
     let mut status: Option<Status> = None;
 
     match msg_type {
         Type::NODE => {
-            sid = Some(deserializeInt(&mut buf));
-            pid = Some(deserializeInt(&mut buf));
+            n_uid = Some(deserializeUID(&mut buf));
+            p_uid = Some(deserializeUID(&mut buf));
             alt = Some(deserializeInt(&mut buf));
             kids = Some(deserializeInt(&mut buf));
             status = Some(deserializeStatus(&mut buf));
@@ -104,11 +97,10 @@ pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
     }
 
     let mut rid: Option<i32> = None;
-    let mut tid: Option<i32> = None;
     let mut label: Option<String> = None;
-    let mut solution: Option<String> = None;
     let mut nogood: Option<String> = None;
     let mut info: Option<String> = None;
+    let mut version: Option<i32> = None;
 
     loop {
 
@@ -116,25 +108,9 @@ pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
         if let Some(field) = deserializeField(&mut buf) {
 
             match field {
-                Field::RESTART_ID => {
-                    // println!("RESTART_ID");
-                    rid = Some(deserializeInt(&mut buf));
-                    // println!("rid: {:?}", rid);
-                }
-                Field::THREAD_ID => {
-                    // println!("THREAD_ID");
-                    tid = Some(deserializeInt(&mut buf));
-                    // println!("tid: {:?}", tid);
-                }
                 Field::LABEL => {
-                    // println!("LABEL");
                     label = Some(deserializeString(&mut buf));
                     // println!("label: {:?}", label);
-                }
-                Field::SOLUTION => {
-                    // println!("SOLUTION");
-                    solution = Some(deserializeString(&mut buf));
-                    // println!("solution: {:?}", solution);
                 }
                 Field::NOGOOD => {
                     // println!("NOGOOD");
@@ -145,6 +121,9 @@ pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
                     // println!("INFO");
                     info = Some(deserializeString(&mut buf));
                     // println!("info: {:?}", info);
+                }
+                Field::VERSION => {
+                    version = Some(deserializeInt(&mut buf));
                 }
                 _ => {
                     // println!("unknown field");
@@ -157,20 +136,18 @@ pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
     }
 
     let msg = match msg_type {
-        Type::START => Message::START { rid, name: label },
+        Type::START => Message::START {version: version.unwrap(), info },
+        Type::RESTART => Message::RESTART { info },
         Type::DONE => Message::DONE,
         Type::NODE => {
 
             Message::NODE {
-                sid: sid.unwrap(),
-                pid: pid.unwrap(),
+                n_uid: n_uid.unwrap(),
+                p_uid: p_uid.unwrap(),
                 alt: alt.unwrap(),
                 kids: kids.unwrap(),
                 status: status.unwrap(),
-                rid,
-                tid,
                 label,
-                solution,
                 nogood,
                 info,
             }
@@ -180,11 +157,20 @@ pub fn parse_from_bytes(buf: &Box<[u8]>) -> Result<Message, &'static str> {
     Ok(msg)
 }
 
+fn deserializeUID(mut buf: &mut std::slice::Iter<u8>) -> NodeUID {
+    let nid = deserializeInt(&mut buf);
+    let rid = deserializeInt(&mut buf);
+    let tid = deserializeInt(&mut buf);
+
+    NodeUID{nid, rid, tid}
+}
+
 fn deserializeType(buf: &mut std::slice::Iter<u8>) -> Type {
     match *buf.next().unwrap() {
         0 => Type::NODE,
         1 => Type::DONE,
         2 => Type::START,
+        3 => Type::RESTART,
         _ => panic!(),
     }
 }
@@ -206,7 +192,7 @@ fn deserializeStatus(buf: &mut std::slice::Iter<u8>) -> Status {
         0 => Status::SOLVED,
         1 => Status::FAILED,
         2 => Status::BRANCH,
-        6 => Status::SKIPPED,
+        3 => Status::SKIPPED,
         _ => panic!(),
     }
 }
@@ -226,17 +212,10 @@ fn deserializeString(mut buf: &mut std::slice::Iter<u8>) -> String {
 fn deserializeField(buf: &mut std::slice::Iter<u8>) -> Option<Field> {
 
     match buf.next() {
-        Some(&0) => Some(Field::ID),
-        Some(&1) => Some(Field::PID),
-        Some(&2) => Some(Field::ALT),
-        Some(&3) => Some(Field::KIDS),
-        Some(&4) => Some(Field::STATUS),
-        Some(&5) => Some(Field::RESTART_ID),
-        Some(&6) => Some(Field::THREAD_ID),
-        Some(&7) => Some(Field::LABEL),
-        Some(&8) => Some(Field::SOLUTION),
-        Some(&9) => Some(Field::NOGOOD),
-        Some(&10) => Some(Field::INFO),
+        Some(&0) => Some(Field::LABEL),
+        Some(&1) => Some(Field::NOGOOD),
+        Some(&2) => Some(Field::INFO),
+        Some(&3) => Some(Field::VERSION),
         _ => None,
     }
 }
