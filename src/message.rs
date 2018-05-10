@@ -55,7 +55,7 @@ pub enum Type {
 }
 
 #[derive(Debug, PartialEq)]
-enum Status {
+pub enum Status {
     ///< Node representing a solution
     SOLVED = 0,
     ///< Node representing failure

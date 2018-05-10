@@ -19,6 +19,8 @@ fn read_stream(mut stream: std::net::TcpStream, path: &str, debug: bool) {
 
     let mut file = File::create(path).unwrap();
 
+    let mut node_count: i32 = 0;
+
 
     loop {
 
@@ -30,7 +32,13 @@ fn read_stream(mut stream: std::net::TcpStream, path: &str, debug: bool) {
 
         let mut buffer = [0; 4];
 
-        stream.read_exact(&mut buffer).unwrap();
+        match stream.read_exact(&mut buffer) {
+            Ok(_) => {},
+            Err(err) => {
+                println!("error: {}", err);
+                break;
+            }
+        }
 
         file.write_all(&buffer).unwrap();
 
@@ -66,7 +74,12 @@ fn read_stream(mut stream: std::net::TcpStream, path: &str, debug: bool) {
                 ref label,
                 ref nogood,
                 ref info,
-            } => {},
+            } => {
+                node_count += 1;
+                if node_count % 1000 == 0 {
+                    println!("Node count: {}", node_count);
+                }
+            },
             message::Message::START{ref version, ref info} => {
                 println!("START");
             },
